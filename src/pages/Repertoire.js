@@ -65,7 +65,7 @@ const Repertoire = () => {
                 >
 
                 {calendar.map( (day, id) => (
-                    <Tab value={id} label={day} />
+                    <Tab key={id} value={id} label={day} />
                 ))}
             </Tabs>
             <Box className="App" sx={ {margin : 0, padding : 0} }>

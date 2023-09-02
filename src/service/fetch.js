@@ -1,8 +1,8 @@
 import {clearLocalStorage} from "./utils";
 
 
-const contextUrl = "http://localhost:8080/CinemaProject";
-
+// const contextUrl = "http://localhost:8080/CinemaProject";
+const contextUrl = "http://localhost:8080";
 
 // this fetch generates new tokens for access and another refresh which are saved in httpOnly cookie
 export const refreshToken = () => {
@@ -90,7 +90,7 @@ export const getUserInfo = async () => {
 
 // gets list with room ids
 export const getRooms = async () => {
-    return await fetchOrRefreshAndFetch( contextUrl + "/room", {
+    return await fetchOrRefreshAndFetch( contextUrl + "/room/all", {
         credentials: "include",
         method: "GET",
         mod: "cors"
@@ -176,7 +176,7 @@ export const signUpUser = (userData) => {
 }
 
 export const getMoviesInTimeRange = (start, end) => {
-    console.log( contextUrl + `/movie/range?start=${start}&end=${end}`)
+    //console.log( contextUrl + `/movie/range?start=${start}&end=${end}`)
     return fetch(
         contextUrl + `/movie/range?start=${start}&end=${end}`,
         {
@@ -189,7 +189,7 @@ export const getMoviesInTimeRange = (start, end) => {
 }
 
 export const getShowsInfoForMovieInTimeRange = (id, start, end) => {
-    console.log( contextUrl + `/show/info/movie/range?movie_id=${id}&start=${start}&end=${end}`)
+    //console.log( contextUrl + `/show/info/movie/range?movie_id=${id}&start=${start}&end=${end}`)
     return fetch( contextUrl + `/show/info/movie/range?movie_id=${id}&start=${start}&end=${end}`,
         {
             method: "GET",
@@ -203,5 +203,35 @@ export const postTickets = (body) => {
         headers: {"Content-Type" : "application/json"},
         mode: "cors",
         body: JSON.stringify(body)
+    });
+}
+
+export const getRoomForShow = (show_id) => {
+    return fetch(contextUrl + "/room/show/" + show_id,
+        {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+}
+
+export const getSitsForShow = (show_id) => {
+    return fetch(contextUrl + "/sit/show/" + show_id,
+        {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+}
+
+export const deleteShowFromRepertoire = async (show_id) => {
+    return await fetchOrRefreshAndFetch( contextUrl + `/show/delete/${show_id}`, {
+        credentials: "include",
+        method: "GET",
+        mode: "cors"
     });
 }

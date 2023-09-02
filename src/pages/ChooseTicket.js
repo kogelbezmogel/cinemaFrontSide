@@ -4,57 +4,32 @@ import {useEffect, useState} from "react";
 import Sit from "../components/Sit";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import {getRoomForShow, getSitsForShow} from "../service/fetch";
 
 
 
-const ChooseTicket = (props ) => {
-
-    const [rows, setRows] = useState(0);
+const ChooseTicket = () => {
 
     const [room_id, setRoom_id] = useState(null);
-
     const [cols, setCols] = useState(0);
-
     const [chosenSits, setChosenSits] = useState([]);
-
     const [allSits, setAllSits] = useState([]);
-
     let { show_id } = useParams();
 
-    let fetch_url = "http://localhost:8080/CinemaProject";
-
     const fetchRoomSize = () => {
-        fetch(fetch_url + "/room/show/" + show_id,
-            {
-                method: "GET",
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            getRoomForShow(show_id)
             .then(res => res.json())
             .then(resJson => {
-                setRows(resJson.number_of_rows)
                 setCols(resJson.number_of_cols)
                 setRoom_id(resJson.id)
             })
     }
 
-
     const fetchSits = () => {
-        fetch(fetch_url + "/sit/show/" + show_id,
-            {
-                method: "GET",
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+        getSitsForShow(show_id)
             .then(res => res.json())
             .then(resJson => setAllSits(resJson))
     }
-
-
 
     const addOrRemoveSitFromList = (what, id) => {
         if( what === 'add' ) {
@@ -64,7 +39,6 @@ const ChooseTicket = (props ) => {
         else if (what === 'remove' )
             setChosenSits( chosenSits.filter( (sit_id) => {return sit_id !== id} ) )
     }
-
 
 
     useEffect( () => {
@@ -81,25 +55,27 @@ const ChooseTicket = (props ) => {
 
     return (
         <>
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1, paddingY : 2, paddingTop : 10 }}>
                 <Grid container item columns={cols} spacing={0.2}>
 
-                    <Grid item xs={cols} sx={{paddingBottom : 10, paddingTop : 10}}>
+                    <Grid key={"screen"} item xs={cols} sx={{paddingBottom : 10, paddingTop : 10}}>
                         <Paper sx={{backgroundColor : '#fff', textAlign : 'center'}}>
                             <Typography variant="button" sx={{color : 'black'}}> Screen </Typography>
                         </Paper>
                     </Grid>
 
-                    { allSits.map( sit => (
-                        <Grid item xs={1}>
+                    { allSits.map( (sit, num) => (
+                        <Grid key={"seat" + num} item xs={1}>
                                 <Sit type={sit.type} num={sit.order_num % cols} order={sit.order_num} onMod={addOrRemoveSitFromList}/>
                         </Grid>
                         ))}
                 </Grid>
             </Box>
-            <Link to="/buyticket" state={buyData}>
-                Next
-            </Link>
+            <Button variant="contained" size="small" >
+                <Link to="/buyticket" state={buyData} style={{ textDecoration: 'none' }} >
+                    Next
+                </Link>
+            </Button>
         </>
     )
 }

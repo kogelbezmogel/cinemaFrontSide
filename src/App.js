@@ -13,6 +13,7 @@ import UserList from "./pages/UserList";
 import Repertoire from "./pages/Repertoire";
 import ChooseTicket from "./pages/ChooseTicket";
 import BuyTicket from "./pages/BuyTicket";
+import Info from "./pages/Info";
 
 const App = () => {
 
@@ -25,6 +26,8 @@ const App = () => {
                           <BrowserRouter>
                               <Routes>
                                   <Route path="/" element={<Home/>}/>
+                                  <Route path="/home" element={<Home/>} />
+                                  <Route path="/info" element={<Info/>} />
                                   <Route path="/repertoire" element={<Repertoire/>}/>
                                   <Route path="/login" element={<Login/>}/>
                                   <Route path="/register" element={<Register/>}/>

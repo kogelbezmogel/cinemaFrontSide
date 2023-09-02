@@ -21,6 +21,10 @@ function Header() {
         setIsUserLoggedIn( localStorage.getItem('user') );
     });
 
+    const onMyAccountClick = () => {
+        window.location.replace("http://localhost:3000/myaccount");
+    }
+
     return (
         <AppBar position="sticky">
             <Container maxWidth="xl">
@@ -44,12 +48,11 @@ function Header() {
                         MOVIE
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, textAlign : 'center', backgroundColor : "green"}}>
-                        <ButtonGroup variant="text" aria-label="text button group">
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, textAlign : 'center'}}>
+                        <ButtonGroup variant="text" aria-label="text button group" sx={{".MuiButtonGroup-grouped:not(:last-of-type)": {borderColor: "#FFFFFF"}}}>
                             {pages.map((page) => (
                                 <Button
                                     key={page}
-                                    href={"/"}
                                     href={"/" + page.toLowerCase()}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
@@ -57,7 +60,7 @@ function Header() {
                                 </Button>
                             ))}
                         </ButtonGroup>
-                        <ButtonGroup variant="text" aria-label="text button group" sx={{ marginLeft: "auto" }}>
+                        <ButtonGroup variant="text" aria-label="text button group" sx={{ marginLeft: "auto", ".MuiButtonGroup-grouped:not(:last-of-type)": {borderColor: "#FFFFFF"}}}>
                             { isUserLoggedIn === null
                                 ? auth_pages.map( (page) => (
                                     <Button
@@ -79,7 +82,7 @@ function Header() {
 
                                     <Button
                                         key={"MyAccount"}
-                                        href={"/myaccount"}
+                                        onClick={onMyAccountClick}
                                         sx={{ my: 2, color: 'white', display: 'block' }}
                                         >
                                         MyAccount

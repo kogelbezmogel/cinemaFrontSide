@@ -17,6 +17,18 @@ const BuyTicket = () => {
 
     const [boughtFlag, setBoughtFlag] = useState(false)
 
+    const handleFnameChange = (event) => {
+        setBuyerFname(event.target.value);
+    };
+
+    const handleLnameChange = (event) => {
+        setBuyerLname(event.target.value);
+    };
+
+    const handleMailChange = (event) => {
+        setBuyerMail(event.target.value);
+    };
+
     const buyTickets = () => {
         let login = null;
         if( localStorage.getItem('user') )
@@ -62,19 +74,19 @@ const BuyTicket = () => {
                 >
 
                     { localStorage.getItem('user') === null && <Typography> Buying as a quest. Maybe you would like to login or register to our service? </Typography>}
-                    <TextField id="fname" label="First Name" variant="outlined" color="secondary" value={buyerFname} />
-                    <TextField id="lname" label="Last Name" variant="outlined" color="secondary" value={buyerLname} />
-                    <TextField id="email" label="Email" variant="outlined" color="secondary"  value={buyerMail} />
+                    <TextField key="fname" id="fname" label="First Name" variant="outlined" color="secondary" value={buyerFname} onChange={handleFnameChange} />
+                    <TextField key="lname" id="lname" label="Last Name" variant="outlined" color="secondary" value={buyerLname} onChange={handleLnameChange} />
+                    <TextField key="mail" id="email" label="Email" variant="outlined" color="secondary"  value={buyerMail} onChange={handleMailChange} />
                 </Box>
             </Box>
             <Box sx={{paddingX : 5, paddingY : 1}}>
-                <Typography variant="h6" sx={{ color : "black"}} >
+                <Typography key="plural" variant="h6" sx={{ color : "black"}} >
                     You are buying {buyData.sits.length}
                     { (buyData.sits.length > 1) && <> tickets. </>}
                     { (buyData.sits.length === 1) && <> ticket. </>}
                 </Typography>
                 {buyData.sits.map( (order, ticket_num) => (
-                    <Typography variant="body2" sx={{color : "grey"}}> {ticket_num+1}. Row: {Math.floor(order/buyData.cols)} Column: {order % buyData.cols} </Typography>
+                    <Typography key={"ticket_" + ticket_num} variant="body2" sx={{color : "grey"}}> {ticket_num+1}. Row: {Math.floor(order/buyData.cols)} Column: {order % buyData.cols} </Typography>
                 ))}
             </Box>
             { !boughtFlag && <Box display="flex" justifyContent="flex-end" alignItems="flex-end" >

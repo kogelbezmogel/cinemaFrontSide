@@ -245,8 +245,8 @@ const Register = () => {
                 <TextField error={!phoneValid} helperText={phoneHelperText} id="phone" label="Phone" variant="outlined" color="secondary" value={phone} onChange={handlePhoneChange} /> <br/>
                 <TextField error={!firstNameValid} helperText={firstNameHelperText} id="fname" label="FirstName" variant="outlined" color="secondary" value={fname} onChange={handleFnameChange} />
                 <TextField error={!lastNameValid} helperText={lastNameHelperText} id="lname" label="LastName" variant="outlined" color="secondary" value={lname} onChange={handleLnameChange} /> <br/> <br/> <br/>
-                <TextField id="password" label="Password" variant="outlined" color="secondary" value={password} onChange={handlePassChange} /> <br/>
-                <TextField error={!passSame} id="password_repeated" label="Password Repeated" variant="outlined" color="secondary" value={repeatedPassword} onChange={handleRepeatedPassChange} /> <br/>
+                <TextField id="password" label="Password" variant="outlined" color="secondary" type="password" value={password} onChange={handlePassChange} /> <br/>
+                <TextField error={!passSame} id="password_repeated" label="Password Repeated" variant="outlined" color="secondary" type="password" value={repeatedPassword} onChange={handleRepeatedPassChange} /> <br/>
                 <Button variant="contained" size="small" onClick={ singUp } > Sign Up </Button>
             </Box>
         </Box>

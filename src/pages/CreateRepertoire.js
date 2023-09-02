@@ -34,7 +34,7 @@ const CreateRepertoire = () => {
           >
 
               {calendar.map( (day, id) => (
-                  <Tab value={id} label={day} />
+                  <Tab key={"date_" + id} value={id} label={day} />
               ))}
           </Tabs>
 
@@ -46,7 +46,7 @@ const CreateRepertoire = () => {
           >
 
               {rooms.map( (num) => (
-                  <Tab value={num} label={num} />
+                  <Tab key={"room_" + num} value={num} label={num} />
               ))}
           </Tabs>
 

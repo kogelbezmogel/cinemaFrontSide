@@ -1,13 +1,16 @@
-import {Box, Card, CardActionArea, CardContent, Grid, Paper, Typography} from "@mui/material";
+import {Box, ButtonGroup, Card, CardActionArea, CardContent, Grid, Paper, Typography} from "@mui/material";
 import {AccessTime} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import dayjs from "dayjs";
 import {getShowsInfoForMovieInTimeRange} from "../service/fetch";
+import Button from "@mui/material/Button";
 
 
 const MovieCard = (props) => {
 
     const [showsInfo, setShowsInfo] = useState([])
+
+    console.log(props.movieData);
 
     const fetchShowInfo = () => {
         getShowsInfoForMovieInTimeRange(props.movieData.id, props.shift_start.toISOString(), props.shift_end.toISOString())
@@ -41,14 +44,21 @@ const MovieCard = (props) => {
                                         Movie length: {props.movieData.length_min} min.
                                     </Typography>
                                 </Box>
+                                <Box sx={{paddingY:2}}>
+                                    <ButtonGroup variant="text" size="small" aria-label="small button group" sx={{".MuiButtonGroup-grouped:not(:last-of-type)": {borderColor: '#bfbfbf'}}}>
+                                    {props.movieData.genres.map( (genre)=> (
+                                        <Button sx={{color: '#bfbfbf'}}> {genre.genre} </Button>
+                                    ))}
+                                    </ButtonGroup>
+                                </Box>
                                 <Box>
                                     <Grid container >
-                                        {showsInfo.map( (info) => (
-                                            <Grid item xs={3}>
-                                                <Card  sx={{backgroundColor : 'secondary.main', paddingY : 1, paddingX : 1, margin : 0.4}}>
+                                        {showsInfo.map( (info, num) => (
+                                            <Grid key={`time_${props.movieData.title}_${num}`} item xs={3}>
+                                                <Card key={`card_${props.movieData.title}_${num}`} sx={{backgroundColor : 'secondary.main', paddingY : 1, paddingX : 1, margin : 0.4}}>
                                                     <CardActionArea href={"/chooseticket/" + info.id}>
                                                         <CardContent>
-                                                            <Typography>{dayjs(info.time.toString()).format("HH:mm")}</Typography>
+                                                            <Typography key={`typo_${props.movieData.title}_${num}`} >{dayjs(info.time.toString()).format("HH:mm")}</Typography>
                                                         </CardContent>
                                                     </CardActionArea>
                                                 </Card>

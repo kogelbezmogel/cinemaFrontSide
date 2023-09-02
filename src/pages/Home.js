@@ -1,42 +1,37 @@
-import {useEffect, useState} from "react";
-import {fetchOrRefreshAndFetch} from "../service/fetch";
+import {Box, Paper, Typography} from "@mui/material";
+import theater from "../utils/theater.jpg";
 
-const loadData1 = () => {
-    console.log("loadData1");
-}
 
 const Home = () => {
-
-    const [result, setResult] = useState("Empty")
-
-    // useEffect( () => {
-    //     fetchOrRefreshAndFetch("http://localhost:8080/CinemaProject/hello", {
-    //         credentials : "include",
-    //         method : "GET",
-    //         mode : 'cors'
-    //     }).then( res => res.text().then( res => setResult(res) ) );
-    // }, [])
-
-    const loadData2 = () => {
-        console.log("loadData2");
-    }
-
-    useEffect( () => {
-        console.log("I run only once");
-        loadData1();
-        loadData2();
-    }, []);
-
-
-
-
-
     return (
-        <>
-            Home {result} <br/>
-            {/*Logged User : {localStorage.getItem("user")} <br/>*/}
-            {/*Roles : {localStorage.getItem("roles")}*/}
-        </>
+            <Box sx={{width : '100%'}}>
+                <Paper sx={{backgroundColor : 'primary.main', height : '100%', margin : 2, padding : 2, textAlign : 'center'}} >
+                    <Typography variant="h4">
+                        Welcome in our cinema Sauron's eye!
+                    </Typography>
+                </Paper>
+
+                <Paper sx={{backgroundColor : 'primary.main', height : '100%', margin : 2, padding : 1}} >
+                    <img alt='please stand by...' src={theater} height='100%' width='100%'/>
+                </Paper>
+
+                <Paper sx={{backgroundColor : 'primary.main', height : '100%', margin : 2, padding : 3}} >
+                    <Typography variant="subtitle1">
+                        Here you can: <br/>
+                        &#x2022; Check repertoire for today and two days ahead. <br/>
+                        &#x2022; Buy tickets for shows. <br/>
+                        &#x2022; Register yourself for quicker ticket buying. <br/>
+                    </Typography>
+                </Paper>
+
+                <Paper sx={{backgroundColor : 'primary.main', height : '100%', margin : 2, padding : 3}} >
+                    <Typography variant="subtitle1">
+                        If you are admin: <br/>
+                        &#x2022; Create repertoire for today and three days ahead. <br/>
+                        &#x2022; See registered users. <br/>
+                    </Typography>
+                </Paper>
+            </Box>
     );
 }
 

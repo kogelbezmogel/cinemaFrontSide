@@ -53,8 +53,8 @@ const MyAccount = () => {
             <Paper sx={{backgroundColor : 'black', textAlign : 'center', paddingY : 1, color : '#fff'}}>
                 <span style={{color : 'red'}} > {admin && 'Admin'} </span> {!admin && 'User'} panel :
             </Paper>
-            { admin && <Box>
-                <ButtonGroup variant="text" aria-label="text button group">
+            { admin && <Box display="flex" justifyContent="center" alignItems="center">
+                <ButtonGroup variant="text" aria-label="text button group" sx={{ marginX : 'auto', ".MuiButtonGroup-grouped:not(:last-of-type)": {borderColor: "#FFFFFF"}}}>
                     {admin_options_full_names.map((opt, num) => (
                         <Button
                             key={opt}

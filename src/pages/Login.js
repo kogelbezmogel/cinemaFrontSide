@@ -29,7 +29,7 @@ const Login = () => {
                     autoComplete="off"
                 >
                     <TextField id="login" label="Login" variant="outlined" color="secondary" value={login} onChange={handleLogChange} /> <br/>
-                    <TextField id="password" label="Password" variant="outlined" color="secondary" value={password} onChange={handlePassChange} /> <br/>
+                    <TextField id="password" label="Password" variant="outlined" type="password" color="secondary" value={password} onChange={handlePassChange} /> <br/>
                     <Button variant="contained" size="small" onClick={ () => signIn(login, password) } > Login </Button>
                 </Box>
             </Box>
