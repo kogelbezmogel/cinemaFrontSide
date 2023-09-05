@@ -30,30 +30,29 @@ const Repertoire = () => {
 
         start = new Date(start);
         end = new Date(end);
-
-        console.log("Setting dayId to:" + dayId);
-        console.log("new base date: " + calendar[dayId]);
-        console.log(start.toISOString());
-        console.log(end.toISOString());
-        console.log();
-
+        // console.log("Setting dayId to:" + dayId);
+        // console.log("new base date: " + calendar[dayId]);
+        // console.log(start.toISOString());
+        // console.log(end.toISOString());
+        // console.log();
         setShift_start( start );
         setShift_end( end );
     };
 
 
     const fetchMoviesData = (start, end) => {
+        console.log("fetching movies data");
         getMoviesInTimeRange(start, end).then(res => {
                 if (res.status === 200)
-                    res.json().then(resJson => { setMovies(resJson); console.log(resJson); } );
+                    res.json().then(resJson => { setMovies(resJson); console.log(`Fetched movies are :\n${resJson}`); } );
             });
     };
 
 
     useEffect(() => {
         fetchMoviesData( shift_start.toISOString(), shift_end.toISOString() );
-        console.log("UseEffect moved")
-    }, [dayId, calendar]);
+        console.log(`looking for movies from ${shift_start.toISOString()} to ${shift_end.toISOString()}`);
+    }, [dayId, shift_start, shift_end]);
 
     return (
         <>
@@ -65,13 +64,13 @@ const Repertoire = () => {
                 >
 
                 {calendar.map( (day, id) => (
-                    <Tab key={id} value={id} label={day} />
+                    <Tab key={`dateTab_${id}`} value={id} label={day} />
                 ))}
             </Tabs>
             <Box className="App" sx={ {margin : 0, padding : 0} }>
-                { movies.map( movie => (
-                    <MovieCard movieData={movie} shift_start={shift_start} shift_end={shift_end} />
-                ))}
+                { movies.map( (movie, num) => {console.log(`rendering movies cards`); return (
+                    <MovieCard key={ `movieCard_${num}`} movieData={movie} shift_start={shift_start} shift_end={shift_end} />
+                )})}
             </Box>
         </>
     )

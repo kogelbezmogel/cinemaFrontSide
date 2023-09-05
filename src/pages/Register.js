@@ -40,7 +40,6 @@ const Register = () => {
 
 
     const singUp = async () => {
-
         let check
         check = await (checkLogin(login) && checkEmail(mail) && checkPhone(phone));
         check = checkFirstName() && check;
@@ -52,8 +51,6 @@ const Register = () => {
             setPassword("");
             setRepeatedPassword("");
         }
-
-        console.log("check: " + check);
 
         if(check) {
             signUpUser({
@@ -199,10 +196,6 @@ const Register = () => {
     }
 
     const checkPassSame = async (repeatedPassword) => {
-
-        console.log("Password:  (" + password + ")");
-        console.log("RPassword: (" + repeatedPassword + ")");
-
         if( password === repeatedPassword ) {
             setPassSame(true);
             return true;

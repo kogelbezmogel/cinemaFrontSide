@@ -17,7 +17,7 @@ export const capitalizeFirstLetter = (string) => {
 export const getRoomsNums = async () => {
     let rooms = await getRooms();
     rooms = await rooms.json();
-    console.log("created rooms list");
+    //console.log("created rooms list");
     return rooms.map( room => room.id );
 }
 
@@ -28,7 +28,7 @@ export const setRepertoireDates = (numbers) => {
     let rep_dates = numbers.map( (num) => new Date(day_0.setDate(day_0.getDate() + num)) );
     rep_dates = rep_dates.map( (day) => dayjs(day).format("YYYY-MM-DD") );
 
-    console.log("created calendar");
+    //console.log("created calendar");
     return rep_dates;
 }
 

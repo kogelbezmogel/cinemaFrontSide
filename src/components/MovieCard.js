@@ -8,6 +8,11 @@ import Button from "@mui/material/Button";
 
 const MovieCard = (props) => {
 
+    const chunk_size = 4;
+    const number_of_chunks = Math.ceil( props.movieData.genres.length / chunk_size );
+    const chunks_ids = Array.from( Array(number_of_chunks).keys() );
+    const genres_len = props.movieData.genres.length;
+
     const [showsInfo, setShowsInfo] = useState([])
 
     console.log(props.movieData);
@@ -20,8 +25,9 @@ const MovieCard = (props) => {
 
 
     useEffect( () => {
+        console.log(`fetching shows info in MovieCard from ${props.shift_start.toISOString()} to ${props.shift_start.toISOString()}`);
         fetchShowInfo();
-    }, [])
+    }, [props.shift_start, props.shift_end, props.movieData])
 
 
     return (
@@ -44,21 +50,25 @@ const MovieCard = (props) => {
                                         Movie length: {props.movieData.length_min} min.
                                     </Typography>
                                 </Box>
-                                <Box sx={{paddingY:2}}>
-                                    <ButtonGroup variant="text" size="small" aria-label="small button group" sx={{".MuiButtonGroup-grouped:not(:last-of-type)": {borderColor: '#bfbfbf'}}}>
-                                    {props.movieData.genres.map( (genre)=> (
-                                        <Button sx={{color: '#bfbfbf'}}> {genre.genre} </Button>
+                                <Box sx={{paddingY:2}}> {/*this need to be changed for more flexible solution*/}
+                                    {chunks_ids.map( (chunk_id) => (
+                                        <ButtonGroup key={`genres_chunk_for_${props.movieData.title}_${chunk_id}`} variant="text" size="small" aria-label="small button group" sx={{paddingY:1, ".MuiButtonGroup-grouped:not(:last-of-type)": {borderColor: '#bfbfbf'}}}>
+                                            {props.movieData.genres.slice(chunk_id * chunk_size).map( (genre, num) =>
+                                                { if(num < chunk_size) return (<Button key={`genre_for_${props.movieData.title}_${chunk_id}_${num}`} sx={{color: '#bfbfbf'}}>
+                                                    {genre.genre}
+                                                </Button>)}
+                                            )}
+                                        </ButtonGroup>
                                     ))}
-                                    </ButtonGroup>
                                 </Box>
                                 <Box>
                                     <Grid container >
                                         {showsInfo.map( (info, num) => (
-                                            <Grid key={`time_${props.movieData.title}_${num}`} item xs={3}>
-                                                <Card key={`card_${props.movieData.title}_${num}`} sx={{backgroundColor : 'secondary.main', paddingY : 1, paddingX : 1, margin : 0.4}}>
+                                            <Grid key={`time_for_${props.movieData.title}_${num}`} item xs={3}>
+                                                <Card sx={{backgroundColor : 'secondary.main', paddingY : 1, paddingX : 1, margin : 0.4}}>
                                                     <CardActionArea href={"/chooseticket/" + info.id}>
                                                         <CardContent>
-                                                            <Typography key={`typo_${props.movieData.title}_${num}`} >{dayjs(info.time.toString()).format("HH:mm")}</Typography>
+                                                            <Typography >{dayjs(info.time.toString()).format("HH:mm")}</Typography>
                                                         </CardContent>
                                                     </CardActionArea>
                                                 </Card>

@@ -74,19 +74,19 @@ const BuyTicket = () => {
                 >
 
                     { localStorage.getItem('user') === null && <Typography> Buying as a quest. Maybe you would like to login or register to our service? </Typography>}
-                    <TextField key="fname" id="fname" label="First Name" variant="outlined" color="secondary" value={buyerFname} onChange={handleFnameChange} />
-                    <TextField key="lname" id="lname" label="Last Name" variant="outlined" color="secondary" value={buyerLname} onChange={handleLnameChange} />
-                    <TextField key="mail" id="email" label="Email" variant="outlined" color="secondary"  value={buyerMail} onChange={handleMailChange} />
+                    <TextField id="fname" label="First Name" variant="outlined" color="secondary" value={buyerFname} onChange={handleFnameChange} />
+                    <TextField id="lname" label="Last Name" variant="outlined" color="secondary" value={buyerLname} onChange={handleLnameChange} />
+                    <TextField id="email" label="Email" variant="outlined" color="secondary"  value={buyerMail} onChange={handleMailChange} />
                 </Box>
             </Box>
             <Box sx={{paddingX : 5, paddingY : 1}}>
-                <Typography key="plural" variant="h6" sx={{ color : "black"}} >
+                <Typography variant="h6" sx={{ color : "black"}} >
                     You are buying {buyData.sits.length}
                     { (buyData.sits.length > 1) && <> tickets. </>}
                     { (buyData.sits.length === 1) && <> ticket. </>}
                 </Typography>
                 {buyData.sits.map( (order, ticket_num) => (
-                    <Typography key={"ticket_" + ticket_num} variant="body2" sx={{color : "grey"}}> {ticket_num+1}. Row: {Math.floor(order/buyData.cols)} Column: {order % buyData.cols} </Typography>
+                    <Typography key={`ticket_${ticket_num}`} variant="body2" sx={{color : "grey"}}> {ticket_num+1}. Row: {Math.floor(order/buyData.cols)} Column: {order % buyData.cols} </Typography>
                 ))}
             </Box>
             { !boughtFlag && <Box display="flex" justifyContent="flex-end" alignItems="flex-end" >

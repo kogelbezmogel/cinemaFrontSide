@@ -235,3 +235,13 @@ export const deleteShowFromRepertoire = async (show_id) => {
         mode: "cors"
     });
 }
+
+export const changeUserDetails = async (body) => {
+    return await fetchOrRefreshAndFetch( contextUrl + `/user/update`, {
+        credentials: "include",
+        method: "POST",
+        mode: "cors",
+        headers : {'Content-Type' : 'application/json'},
+        body : JSON.stringify(body)
+    });
+}

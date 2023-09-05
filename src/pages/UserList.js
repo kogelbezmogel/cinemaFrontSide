@@ -15,17 +15,14 @@ const UserList = () => {
     }, [])
 
 
-
     return (
-        <>
-            <Grid container>
-                {users.map( (user) => (
-                    <Grid xs={12}>
-                        User: ${user.login}
-                    </Grid>
-                ))}
-            </Grid>
-        </>
+        <Grid container>
+            {users.map( (user, num) => (
+                <Grid item key={`user_${num}`} xs={12}>
+                    User: ${user.login}
+                </Grid>
+            ))}
+        </Grid>
     );
 };
 
